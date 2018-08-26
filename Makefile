@@ -1,5 +1,9 @@
 help:
-	@docker run --rm -it -v "$(CURDIR)"/doc:/doc sphinx:latest help
+	@if [ -d "$(CURDIR)"/doc ]; then\
+	  docker run --rm -it -v "$(CURDIR)"/doc:/doc sphinx:latest help;\
+	else\
+	  echo "Document folder $(CURDIR)/doc folder not found, you might need to run 'make quickstart' first";\
+  fi
 
 .PHONY: help Makefile
 
@@ -10,7 +14,11 @@ remove:
 	@docker container rm sphinx
 
 quickstart:
-	@docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest
+	@if [ -d "$(CURDIR)"/doc ]; then\
+	  echo "Document folder $(CURDIR)/doc already exist, unable to create a new document, delete the folder first";\
+	else\
+	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest;\
+  fi
 
 bash:
 	@docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" sphinx:latest
