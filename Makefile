@@ -1,15 +1,18 @@
+NO_DOC_FOLDER := "Document folder $(CURDIR)/doc folder not found, you might need to run 'make quickstart' first"
+YES_DOC_FOLDER := "Document folder $(CURDIR)/doc already exist, unable to create a new document, delete the folder first"
+
 help:
 	@if [ -d "$(CURDIR)"/doc ]; then\
 	  docker run --rm -it -v "$(CURDIR)"/doc:/doc sphinx:latest help;\
 	else\
-	  echo "Document folder $(CURDIR)/doc folder not found, you might need to run 'make quickstart' first";\
+	  echo $(NO_DOC_FOLDER);\
   fi
 
 .PHONY: help Makefile
 
 quickstart:
 	@if [ -d "$(CURDIR)"/doc ]; then\
-	  echo "Document folder $(CURDIR)/doc already exist, unable to create a new document, delete the folder first";\
+	  echo $(YES_DOC_FOLDER);\
 	else\
 	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest;\
   fi
@@ -18,7 +21,7 @@ bash:
 	@if [ -d "$(CURDIR)"/doc ]; then\
 	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" sphinx:latest;\
 	else\
-	  echo "Document folder $(CURDIR)/doc folder not found, you might need to run 'make quickstart' first";\
+	  echo $(NO_DOC_FOLDER);\
   fi
 
 docker-build:
@@ -37,5 +40,5 @@ docker-delete-none-images:
 	@if [ -d "$(CURDIR)"/doc ]; then\
 	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc sphinx:latest $@;\
 	else\
-	  echo "Document folder $(CURDIR)/doc folder not found, you might need to run 'make quickstart' first";\
+	  echo $(NO_DOC_FOLDER);\
   fi
