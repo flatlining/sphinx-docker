@@ -6,11 +6,14 @@ help:
 build:
 	@docker build -t sphinx:latest .
 
+remove:
+	@docker container rm sphinx
+
 quickstart:
 	@docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest
 
 bash:
-	docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" sphinx:latest
+	@docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" sphinx:latest
 
 docker-delete-dangling-volumes:
 	docker volume rm $(docker volume ls -qf dangling=true)
