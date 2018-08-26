@@ -1,22 +1,22 @@
 # sphinx-docker
 
-## Command
+## How to Use It
 
-### Build Image
+### Quickstart
 
-`docker build -t sphinx .`
+To use the sphinx-quickstart to create a new document run the image with the following command:
 
-### New Document
+`docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest`
 
-`docker run --rm -it -v "$(pwd)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx`
+### Build Document
 
-### Docker Builder
+To list the available build formats run the image with the following command:
 
-`docker run --rm -it -v "$(pwd)"/doc:/doc sphinx`
+`docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc sphinx:latest help`
 
-`docker run --rm -it -v "$(pwd)"/doc:/doc sphinx html`
+To build the document run the image with the following command, where the last parameter is one of the formats listed by the command above:
 
-`docker run --rm -it -v "$(pwd)"/doc:/doc sphinx latexpdf`
+`docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc sphinx:latest html`
 
 ## References
 
