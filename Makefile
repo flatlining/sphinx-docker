@@ -24,11 +24,14 @@ bash:
 	  echo $(NO_DOC_FOLDER);\
   fi
 
-docker-build:
-		@docker build -t sphinx:latest .
+docker-build-image:
+	docker build -t sphinx:latest .
 
-docker-remove:
-		@docker container rm sphinx
+docker-remove-image:
+	docker image rm sphinx
+
+docker-remove-container:
+	docker container rm sphinx
 
 docker-delete-dangling-volumes:
 	docker volume rm $(docker volume ls -qf dangling=true)
