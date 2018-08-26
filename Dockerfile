@@ -11,4 +11,5 @@ RUN pip install --upgrade pip \
 
 WORKDIR /doc
 
+CMD ["help"]
 ENTRYPOINT ["make"]
