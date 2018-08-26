@@ -4,7 +4,7 @@ help:
 .PHONY: help Makefile
 
 build:
-	@docker build -t sphinx .
+	@docker build -t sphinx:latest .
 
 quickstart:
 	@docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest
