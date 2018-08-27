@@ -20,7 +20,7 @@ if "%1" == "remove" goto remove
 if "%1" == "quickstart" goto quickstart
 if "%1" == "bash" goto bash
 
-%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc sphinx:latest %1
+%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc flatlining/sphinx:latest %1
 goto end
 
 :help

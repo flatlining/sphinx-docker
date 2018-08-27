@@ -3,7 +3,7 @@ YES_DOC_FOLDER := "Document folder $(CURDIR)/doc already exist, unable to create
 
 help:
 	@if [ -d "$(CURDIR)"/doc ]; then\
-	  docker run --rm -it -v "$(CURDIR)"/doc:/doc sphinx:latest help;\
+	  docker run --rm -it -v "$(CURDIR)"/doc:/doc flatlining/sphinx:latest help;\
 	else\
 	  echo $(NO_DOC_FOLDER);\
   fi
@@ -14,18 +14,18 @@ quickstart:
 	@if [ -d "$(CURDIR)"/doc ]; then\
 	  echo $(YES_DOC_FOLDER);\
 	else\
-	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest;\
+	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "sphinx-quickstart" flatlining/sphinx:latest;\
   fi
 
 bash:
 	@if [ -d "$(CURDIR)"/doc ]; then\
-	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" sphinx:latest;\
+	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" flatlining/sphinx:latest;\
 	else\
 	  echo $(NO_DOC_FOLDER);\
   fi
 
 docker-build-image:
-	docker build -t sphinx:latest .
+	docker build -t flatlining/sphinx:latest .
 
 docker-remove-image:
 	docker image rm sphinx
@@ -44,7 +44,7 @@ docker-delete-none-images:
 
 %: Makefile
 	@if [ -d "$(CURDIR)"/doc ]; then\
-	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc sphinx:latest $@;\
+	  docker run --rm -it --name sphinx -v "$(CURDIR)"/doc:/doc flatlining/sphinx:latest $@;\
 	else\
 	  echo $(NO_DOC_FOLDER);\
   fi
