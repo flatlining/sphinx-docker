@@ -36,8 +36,11 @@ docker-remove-container:
 docker-delete-dangling-volumes:
 	docker volume rm $(docker volume ls -qf dangling=true)
 
+docker-delete-dangling-images:
+	docker rmi $(docker images -q -f dangling=true)
+
 docker-delete-none-images:
-	docker image rm $(docker images -q -f dangling=true)
+	docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
 
 %: Makefile
 	@if [ -d "$(CURDIR)"/doc ]; then\
