@@ -24,11 +24,11 @@ if "%1" == "bash" goto bash
 goto end
 
 :help
-%DOCKERCMD% run --rm -it -v %~dp0/doc:/doc sphinx:latest help
+%DOCKERCMD% run --rm -it -v %~dp0/doc:/doc flatlining/sphinx:latest help
 goto end
 
 :build
-%DOCKERCMD% build -t sphinx:latest .
+%DOCKERCMD% build -t flatlining/sphinx:latest .
 goto end
 
 :remove
@@ -37,11 +37,11 @@ goto end
 
 :quickstart
 mkdir doc
-%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc --entrypoint "sphinx-quickstart" sphinx:latest
+%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc --entrypoint "sphinx-quickstart" flatlining/sphinx:latest
 goto end
 
 :bash
-%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc --entrypoint "/bin/bash" sphinx:latest
+%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc --entrypoint "/bin/bash" flatlining/sphinx:latest
 goto end
 
 :end
