@@ -1,0 +1,7 @@
+.gitignore text eol=lf
+.gitattributes eol=lf
+.editorconfig eol=lf
+Dockerfile eol=lf
+Makefile eol=lf
+*.bat text eol=lf
+*.md text eol=lf

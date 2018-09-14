@@ -2,6 +2,15 @@
 
 pushd %~dp0
 
+if "%CONTAINER%" == "" (
+	set CONTAINER=sphinx
+)
+if "%IMAGE%" == "" (
+	set IMAGE=sphinx
+)
+if "%DISTIMAGE%" == "" (
+	set DISTIMAGE=flatlining/sphinx
+)
 if "%DOCKERCMD%" == "" (
 	set DOCKERCMD=docker
 )
@@ -14,34 +23,23 @@ if errorlevel 9009 (
 	exit /b 1
 )
 
-if "%1" == "" goto help
+if "%1" == "" goto end
 if "%1" == "build" goto build
-if "%1" == "remove" goto remove
-if "%1" == "quickstart" goto quickstart
+if "%1" == "tag" goto tag
 if "%1" == "bash" goto bash
 
-%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc flatlining/sphinx:latest %1
-goto end
-
-:help
-%DOCKERCMD% run --rm -it -v %~dp0/doc:/doc flatlining/sphinx:latest help
 goto end
 
 :build
-%DOCKERCMD% build -t flatlining/sphinx:latest .
+%DOCKERCMD% image build -t %IMAGE% .
 goto end
 
-:remove
-%DOCKERCMD% container rm sphinx
-goto end
-
-:quickstart
-mkdir doc
-%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc --entrypoint "sphinx-quickstart" flatlining/sphinx:latest
+:tag
+%DOCKERCMD% image tag %IMAGE% %DISTIMAGE%
 goto end
 
 :bash
-%DOCKERCMD% run --rm -it --name sphinx -v %~dp0/doc:/doc --entrypoint "/bin/bash" flatlining/sphinx:latest
+%DOCKERCMD% container run --rm -it --name %CONTAINER% -v %~dp0/doc:/doc --entrypoint "/bin/bash" %IMAGE%
 goto end
 
 :end
