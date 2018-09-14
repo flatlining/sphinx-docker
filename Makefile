@@ -13,4 +13,4 @@ tag:
 	docker image tag $(IMAGE) $(DISTIMAGE)
 
 bash:
-		docker container run --rm -it --name $(CONTAINER) -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" $(IMAGE)
+	docker container run --rm -it --name $(CONTAINER) -v "$(CURDIR)"/doc:/doc --entrypoint "/bin/bash" $(IMAGE)
